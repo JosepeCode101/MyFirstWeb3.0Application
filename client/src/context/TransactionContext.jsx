@@ -6,7 +6,7 @@ import { contractABI, contractAddress } from '../utils/constants';
 // 
 export const TransactionContext = React.createContext();
 
-// Ethereum window object
+// Ethereum window object estamos desestruccturando el objeto ETH de window.ethereum
 const { ethereum } = window;
 
 // ACCEDER A LA BLOCKCHAIN
@@ -20,5 +20,26 @@ const getEthereumContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
 
     const signer = provider.getSigner();
+
+
+    // generamos el transaction contract con la direccion ABI y firmante que nos servirarn para recuperar nuestro SC
+    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+
+    // imprimir los objetos por consola
+    console.log({
+        provider,
+        signer,
+        transactionContract
+    });
+
+}
+
+export const TransactionProvider = ({ children }) => {
+    return (
+        <TransactionProvider value={{ value: 'test' }}>
+            {children}
+        </TransactionProvider>
+    )
 
 }
