@@ -1,6 +1,11 @@
+
+import React, { useContext } from "react";
+
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
+
+import { TransactionContext  } from "../context/TransactionContext";
 
 import { Loader } from './';
 
@@ -25,6 +30,8 @@ const Formulario = ({ placeholder, name, type, value, handleChange }) => (
 
 // Componente Welcome
 const Welcome = () => {
+
+    const { value } = useContext();
 
     {/* Por completar */}
     const conectarBilletera = () => {
