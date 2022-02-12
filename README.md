@@ -15,7 +15,7 @@ More information visit https://vitejs.dev/guide/
 
 Also install Tailwind CSS: https://tailwindcss.com/docs/installation
 
-# How to start build your Web 3.0
+
 1 - Create 2 folders, 'client', where we will host our React Application, and
 'smart contract' for our solidity code.
 2 - 
