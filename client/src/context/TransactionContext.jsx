@@ -37,6 +37,23 @@ const getEthereumContract = () => {
 }
 
 export const TransactionProvider = ({ children }) => {
+    
+    
+    // Función para comprobar si el wallet está conectado
+    const checkIfWalletIsConnected = async () => {
+        // Si no encuentra el objeto ETH de Metamask, que sugiera installar metamask
+        if(!ethereum) return alert("Install metamask ");
+
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+        console.log(accounts);
+
+    }
+
+    useEffect(() => {
+        checkIfWalletIsConnected();
+    }, [])
+    
     return (
         <TransactionContext.Provider value={{value: 'test'}}>
             {children}
