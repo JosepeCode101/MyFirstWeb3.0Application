@@ -1,12 +1,14 @@
-
+//Import del gancho useContext
 import React, { useContext } from "react";
 
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 
+// Import del contexto de transacciones previamente generado
 import { TransactionContext  } from "../context/TransactionContext";
 
+//import del Loader
 import { Loader } from './';
 
 // constante string para definir estilos en la cuadricula
@@ -30,8 +32,12 @@ const Formulario = ({ placeholder, name, type, value, handleChange }) => (
 
 // Componente Welcome
 const Welcome = () => {
-
-    const { value } = useContext();
+    // constante del valor desestructurado pasandole el valor de Transaction Context con el gancho React de usar contexto
+    const { value } = useContext(TransactionContext);
+    
+    // Si todo funciona correctamente en consola nos debería imprimir los datos por consola
+    // y estamos transfiriendo datos correctamente desde TransactionContext 
+    console.log(value);
 
     {/* Por completar */}
     const conectarBilletera = () => {
