@@ -37,6 +37,8 @@ const getEthereumContract = () => {
 }
 
 export const TransactionProvider = ({ children }) => {
+
+    const [connectAccount, setConnectedAccount] = useState('');
     
     
     // Función para comprobar si el wallet está conectado
@@ -50,12 +52,30 @@ export const TransactionProvider = ({ children }) => {
 
     }
 
+    const connectWallet = async () => {
+        try {
+            // Comprueba si tienes Metamask instalado
+            if(!ethereum) return alert("Install metamask ");
+            // Si tienes varias cuentas de metamask ESCOGER QUE BILLETERA CONECTAR
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            //
+            setCurrentAccount(accounts[0]);
+
+        } catch (error) {
+
+            console.log(error);
+
+            throw new Error('No ETH object');
+            
+        }
+    }
+
     useEffect(() => {
         checkIfWalletIsConnected();
     }, [])
     
     return (
-        <TransactionContext.Provider value={{value: 'test'}}>
+        <TransactionContext.Provider value={{connectWallet}}>
             {children}
         </TransactionContext.Provider>
     );

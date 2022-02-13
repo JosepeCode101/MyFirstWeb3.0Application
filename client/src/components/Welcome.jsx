@@ -33,17 +33,14 @@ const Formulario = ({ placeholder, name, type, value, handleChange }) => (
 // Componente Welcome
 const Welcome = () => {
     // constante del valor desestructurado pasandole el valor de Transaction Context con el gancho React de usar contexto
-    const { value } = useContext(TransactionContext);
+    const { connectWallet } = useContext(TransactionContext);
     
     // Si todo funciona correctamente en consola nos debería imprimir los datos por consola
     // y estamos transfiriendo datos correctamente desde TransactionContext 
-    console.log(value);
+    
 
-    {/* Por completar */}
-    const conectarBilletera = () => {
-
-    }
-    {/* Por completar */}
+    // Ya no necesitamos la funcion conectar billetera porque la tenemos alojada en Transaction Context
+    // Por implementar
     const handleSubmit = () => {
 
     }
@@ -60,7 +57,7 @@ const Welcome = () => {
                     </p>
                     <button
                       type='button'
-                      onClick={conectarBilletera}
+                      onClick={connectWallet}
                       className="flex flex-row justify-center items-center my-5 bg-[#48C9B0] p-3 rounded-full cursor-pointer hover:bg-[#00A79D]"
                     >
                     <p className="text-white text-base font-semibold">Connect your wallet</p>
