@@ -33,7 +33,7 @@ const Formulario = ({ placeholder, name, type, value, handleChange }) => (
 // Componente Welcome
 const Welcome = () => {
     // constante del valor desestructurado pasandole el valor de Transaction Context con el gancho React de usar contexto
-    const { connectWallet } = useContext(TransactionContext);
+    const { connectWallet, currentAccount } = useContext(TransactionContext);
     
     // Si todo funciona correctamente en consola nos debería imprimir los datos por consola
     // y estamos transfiriendo datos correctamente desde TransactionContext 
@@ -55,13 +55,13 @@ const Welcome = () => {
                     <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>
                         Explore cryptocurrencies. Buy, sell, or... build? The choice is yours. Connect your metamask and explore the options #SAFEMOONARMY
                     </p>
-                    <button
+                    {!currentAccount &&  (<button
                       type='button'
                       onClick={connectWallet}
                       className="flex flex-row justify-center items-center my-5 bg-[#48C9B0] p-3 rounded-full cursor-pointer hover:bg-[#00A79D]"
                     >
                     <p className="text-white text-base font-semibold">Connect your wallet</p>
-                    </button>
+                    </button>)}
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                         <div className= {estilos} >Relaiability</div>
                         <div className= {estilos}>Security</div>

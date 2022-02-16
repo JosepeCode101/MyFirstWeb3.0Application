@@ -38,27 +38,44 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
 
-    const [connectAccount, setConnectedAccount] = useState('');
+    const [currentAccount, setCurrentAccount] = useState('');
     
     
     // Función para comprobar si el wallet está conectado
     const checkIfWalletIsConnected = async () => {
-        // Si no encuentra el objeto ETH de Metamask, que sugiera installar metamask
-        if(!ethereum) return alert("Install metamask ");
+        try {
+            // Si no encuentra el objeto ETH de Metamask, que sugiera installar metamask
+            if(!ethereum) return alert("Install metamask ");
 
-        const accounts = await ethereum.request({ method: 'eth_accounts' });
+            const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+            //Checkear si hay una cuenta conectada
+            if(accounts.length) {
+            setCurrentAccount(accounts[0]);
+
+            // getAllTransactions();
+            } else {
+            console.log('No accounts found');
+            }
+        } catch (error) {
+            console.log(error);
+
+            throw new Error('No ETH object');
+        }
 
         console.log(accounts);
 
     }
 
+
+    //Función para conectar la billetera 
     const connectWallet = async () => {
         try {
             // Comprueba si tienes Metamask instalado
             if(!ethereum) return alert("Install metamask ");
             // Si tienes varias cuentas de metamask ESCOGER QUE BILLETERA CONECTAR
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            //
+            // Para conectar la primera cuenta que encuentre por defecto
             setCurrentAccount(accounts[0]);
 
         } catch (error) {
@@ -70,12 +87,15 @@ export const TransactionProvider = ({ children }) => {
         }
     }
 
+
+    //const 
+
     useEffect(() => {
         checkIfWalletIsConnected();
     }, [])
     
     return (
-        <TransactionContext.Provider value={{connectWallet}}>
+        <TransactionContext.Provider value={{connectWallet, currentAccount}}>
             {children}
         </TransactionContext.Provider>
     );
