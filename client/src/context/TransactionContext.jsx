@@ -38,9 +38,26 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
 
+    // constante para el setear el estado de la billetera a conectada
     const [currentAccount, setCurrentAccount] = useState('');
+
+    // constante para emitir las transacciones desde la informacion que pasaremos a través del formulario.
+    const [formData, setFormData] = useState({addressTo: '', amount: '', keyword: '', message:''});
+
+    // Contexto para el botón de 'Send Transaction'
+    const [isLoading, setIsLoading] = useState(false);
     
-    
+
+    // setear las propiedades del FORM
+    const handleChange = (e, name) => {
+
+        // para acabar de entender esta parte hacer un formulario y utilizar esta función para ver como cambian los parametros del formulario
+        setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
+
+    }
+
+
+
     // Función para comprobar si el wallet está conectado
     const checkIfWalletIsConnected = async () => {
         try {
@@ -63,7 +80,7 @@ export const TransactionProvider = ({ children }) => {
             throw new Error('No ETH object');
         }
 
-        console.log(accounts);
+        //console.log(accounts);
 
     }
 
@@ -87,15 +104,37 @@ export const TransactionProvider = ({ children }) => {
         }
     }
 
+    // Función para emitir transacciones a la blockchain
+    const sendTransaction = async () => {
 
-    //const 
+        try {
+
+            if (!ethereum) return alert("Please install Metamask");
+
+            // obtener los datos del formulario
+            const { addressTo, amount, keyword, message } = formData; 
+            // Llamar al smartContrat
+            getEthereumContract();
+            
+        } catch (error) {
+
+            console.log(error);
+
+            throw new Error('No ETH object');
+            
+        }
+
+    }
+
+
+
 
     useEffect(() => {
         checkIfWalletIsConnected();
     }, [])
-    
+    // pasar a través de las propiedades
     return (
-        <TransactionContext.Provider value={{connectWallet, currentAccount}}>
+        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction, isLoading }}>
             {children}
         </TransactionContext.Provider>
     );

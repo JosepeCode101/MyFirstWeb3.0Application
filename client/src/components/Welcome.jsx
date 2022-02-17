@@ -33,15 +33,23 @@ const Formulario = ({ placeholder, name, type, value, handleChange }) => (
 // Componente Welcome
 const Welcome = () => {
     // constante del valor desestructurado pasandole el valor de Transaction Context con el gancho React de usar contexto
-    const { connectWallet, currentAccount } = useContext(TransactionContext);
-    
-    // Si todo funciona correctamente en consola nos debería imprimir los datos por consola
-    // y estamos transfiriendo datos correctamente desde TransactionContext 
-    
+    const { connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction, isLoading } = useContext(TransactionContext);
+       
 
     // Ya no necesitamos la funcion conectar billetera porque la tenemos alojada en Transaction Context
     // Por implementar
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+
+        const { addressTo, amount, keyword, message } = formData; 
+
+        // Normalmente cuando entregamos un formulario, la página se recarga
+        // para prevenir que eso pase llamamos al método preventDefault()
+        e.preventDefault();
+
+        if (!addressTo || !amount || !keyword || !message) return;
+
+        sendTransaction();
+
 
     }
 
@@ -94,16 +102,20 @@ const Welcome = () => {
                     </div>
                     {/* FORMULARIO */}
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                        <Formulario placeholder='Address To' name='addressTo' type='text' handleChange={() =>{}} />
-                        <Formulario placeholder='Amount' name='amount' type='number' handleChange={() =>{}} />
-                        <Formulario placeholder='Keyword (Gif)' name='keyword' type='text' handleChange={() =>{}} />
-                        <Formulario placeholder='Enter Message' name='message' type='text' handleChange={() =>{}} />
+                        {/* En el valor handleChange pasamos la función del mismo nombre en TransactionContext 
+                        Esto actualizará los impus dinámicamente dependiendo del 'nombre' de cada input en específico 
+                        Asegurarse de que los nombres de aquí son iguales que en el estado constante declarado 
+                        en TransactionContext */}
+                        <Formulario placeholder='Address To' name='addressTo' type='text' handleChange={handleChange} />
+                        <Formulario placeholder='Amount' name='amount' type='number' handleChange={handleChange} />
+                        <Formulario placeholder='Keyword (Gif)' name='keyword' type='text' handleChange={handleChange} />
+                        <Formulario placeholder='Enter Message' name='message' type='text' handleChange={handleChange} />
                         {/* SELFCLOSING DIV para crear una separación con una línea */}
                         <div className="h-[1px] w-full bg-gray-400 my-2"/>
 
                         {/* Aquí se mostrará el Loader (?=if   //  :=else) */}
 
-                        {true ? (
+                        {isLoading ? (
                             <Loader />
                         ) : (
                         <button
