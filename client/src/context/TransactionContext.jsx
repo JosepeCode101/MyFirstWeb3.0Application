@@ -28,11 +28,13 @@ const getEthereumContract = () => {
 
 
     // imprimir los objetos por consola
-    console.log({
+   /* console.log({
         provider,
         signer,
         transactionContract
-    });
+    });*/
+
+    return transactionContract;
 
 }
 
@@ -46,6 +48,11 @@ export const TransactionProvider = ({ children }) => {
 
     // Contexto para el botón de 'Send Transaction'
     const [isLoading, setIsLoading] = useState(false);
+
+    // Estado del contador de Transacciones
+    const [transactionCount, seTransactionCount] = useState(localStorage.getItem('transactionCount'));
+
+    // const [transactions, setTransactions] = useState([]);
     
 
     // setear las propiedades del FORM
@@ -108,14 +115,46 @@ export const TransactionProvider = ({ children }) => {
     const sendTransaction = async () => {
 
         try {
+            // Llamar al smartContrat
+            //getEthereumContract();
 
             if (!ethereum) return alert("Please install Metamask");
 
             // obtener los datos del formulario
             const { addressTo, amount, keyword, message } = formData; 
-            // Llamar al smartContrat
-            getEthereumContract();
             
+            // Ahora podemos usar esta variable para llamar a todas las funciones de nuestro SC
+            const transactionContract = getEthereumContract();
+
+            const parsedAmount = ethers.utils.parseEther(amount);
+
+
+            await ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [{
+                    from: currentAccount,
+                    to: addressTo,
+                    gas: '0x5208', //21000 Gwei
+                    value: parsedAmount._hex, //0.00001
+                }], 
+            });
+
+            const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+            setIsLoading(true);
+            console.log('Loading - ${transactionHash.hash}');
+
+            await transactionHash.wait();
+
+            setIsLoading(false);
+            console.log('Success - ${transactionHash.hash}');
+
+            const transactionCount = await transactionContract.getTransactionCount();
+
+            seTransactionCount(transactionCount.toNumber());
+
+
+
         } catch (error) {
 
             console.log(error);
@@ -134,7 +173,7 @@ export const TransactionProvider = ({ children }) => {
     }, [])
     // pasar a través de las propiedades
     return (
-        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction, isLoading }}>
+        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction, isLoading,  }}>
             {children}
         </TransactionContext.Provider>
     );
