@@ -71,12 +71,12 @@ const Welcome = () => {
                     <p className="text-white text-base font-semibold">Connect your wallet</p>
                     </button>)}
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
-                        <div className= {estilos} >Relaiability</div>
+                        <div className= {`rounded-tl-2xl ${estilos}`} >Relaiability</div>
                         <div className= {estilos}>Security</div>
-                        <div className= {estilos}>Ethereum</div>
-                        <div className= {estilos}>Web 3.0</div>
+                        <div className= {`sm:rounded-tr-2xl ${estilos}`}>Ethereum</div>
+                        <div className= {`sm:rounded-bl-2xl ${estilos}`}>Web 3.0</div>
                         <div className= {estilos}>Low Fees</div>
-                        <div className= {estilos}>Blockchain</div>
+                        <div className= {`rounded-br-2xl ${estilos}`}>Blockchain</div>
 
                     </div>
                 </div>
