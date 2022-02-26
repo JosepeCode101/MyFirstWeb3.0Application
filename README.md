@@ -1,8 +1,8 @@
 # MyFirstWeb3_0Application
 Me LEARNING SOLIDITY AND REACT on HOW TO DEPLOY A WEB 3.0 APPLICATION 
 
-# Navbar and Welcome sections
-![Navbar / Welcome](./client/images/Results/navWel.png?raw=true "Navbar / Welcome")
+# Overview
+![Overview](./client/images/Results/overView.png?raw=true "Navbar / Welcome")
 
 # Installation and Information
 Install NodeJS from https://nodejs.org/es/

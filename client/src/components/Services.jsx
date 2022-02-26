@@ -43,13 +43,13 @@ const Services = () => {
                 <ServiceCard
                     color='bg-[#4B41F2]'
                     title='Best exchange Rates'
-                    icon={<BsShieldFillCheck fontSize={21} className='text-white' />}
+                    icon={<BiSearchAlt fontSize={21} className='text-white' />}
                     subtitle='Security is guaranteed. We always maintain privacy and the quality of our products'
                 />
                 <ServiceCard
                     color='bg-[#DF2C20]'
                     title='Fastest transactions'
-                    icon={<BsShieldFillCheck fontSize={21} className='text-white' />}
+                    icon={<RiHeart2Fill fontSize={21} className='text-white' />}
                     subtitle='Security is guaranteed. We always maintain privacy and the quality of our products'
                 />
             </div>

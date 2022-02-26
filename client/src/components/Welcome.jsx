@@ -11,6 +11,9 @@ import { TransactionContext  } from "../context/TransactionContext";
 //import del Loader
 import { Loader } from './';
 
+// import del acortador de direcciones
+import { shortenAddress } from "../utils/shortenAddress";
+
 // constante string para definir estilos en la cuadricula
 const estilos = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
@@ -92,10 +95,10 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light text-sm">
-                                    Address
+                                    {shortenAddress(currentAccount)}
                                 </p>
                                 <p className="text-white font-semibold text-lg mt-1">
-                                    0xDe854e.....dewfT
+                                    Ethereum (ETH)
                                 </p>
                             </div>
                         </div>
