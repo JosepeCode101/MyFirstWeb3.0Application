@@ -19,7 +19,7 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
     </div>
 
 )
-// 2h 20' 30''
+ 
 const Services = () => {
     return (
         <div className="flex flex-col md:flex-row w-full justify-center item-center gradient-bg-services">
