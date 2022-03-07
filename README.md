@@ -7,20 +7,14 @@ Me LEARNING SOLIDITY AND REACT on HOW TO DEPLOY A WEB 3.0 APPLICATION
 # Footer
 ![Footer](./client/images/Results/footer.png?raw=true "Transaccion component with latest transactions rendered & footer")
 
-# Installation and Information
-Install NodeJS from https://nodejs.org/es/
+# About this project
 
-$ npm init vite@latest    
-This comand will install vite on your computer, this will help us develop our application
-Vite is a dev server that provides rich feature enhancements over native ES modules and a 
-build command that bundles your code with Rollup. 
-More information visit https://vitejs.dev/guide/
+I've got inspired by John Karony & Ryan Arriaga to start evolving myself, by learning 
+how to build web 3.0 applications. So I found out JavaScript Mastery YouTube channel 
+and I followed the tutorial. With this lesson finished I'll continue learning in this area
+and improving myself.
 
-Also install Tailwind CSS: https://tailwindcss.com/docs/installation
+You can also learn how to create your first web3.0 application 
+https://www.youtube.com/watch?v=Wn_Kb3MR_cU&t=1377s
 
-# Steps
 
-1 - Create 2 folders, 'client', where we will host our React Application, and
-'smart contract' for our solidity code.
-
-2 - 
