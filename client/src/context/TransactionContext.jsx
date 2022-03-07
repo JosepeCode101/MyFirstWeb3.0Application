@@ -50,9 +50,10 @@ export const TransactionProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     // Estado del contador de Transacciones
-    const [transactionCount, seTransactionCount] = useState(localStorage.getItem('transactionCount'));
+    const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'));
 
-    // const [transactions, setTransactions] = useState([]);
+    // estado del listado de las transacciones
+    const [transactions, setTransactions] = useState([]);
     
 
     // setear las propiedades del FORM
@@ -61,6 +62,37 @@ export const TransactionProvider = ({ children }) => {
         // para acabar de entender esta parte hacer un formulario y utilizar esta función para ver como cambian los parametros del formulario
         setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
 
+    }
+
+    const getAllTransactions = async () => {
+        
+        try {
+            
+            if(ethereum) {
+            const transactionContract = getEthereumContract();
+            const availableTransactions = await transactionContract.getAllTransactions();
+
+            const structuredTransactions = availableTransactions.map((transaction)=>({
+                addressTo: transaction.receiver,
+                addressFrom: transaction.sender,
+                timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+                message: transaction.message,
+                keyword: transaction.keyword,
+                amount: parseInt(transaction.amount._hex) / (10 ** 18)
+            }))
+
+            console.log(structuredTransactions);
+
+            setTransactions(structuredTransactions);
+        } else {
+            console.log('No ETH object');
+        }
+
+        } catch (error) {
+
+            console.log(error);
+            
+        }
     }
 
 
@@ -77,7 +109,7 @@ export const TransactionProvider = ({ children }) => {
             if(accounts.length) {
             setCurrentAccount(accounts[0]);
 
-            // getAllTransactions();
+            getAllTransactions();
             } else {
             console.log('No accounts found');
             }
@@ -91,6 +123,28 @@ export const TransactionProvider = ({ children }) => {
 
     }
 
+    // Función para cargar el historial de las transacciones
+
+    const checkIfTransactionsExist = async () =>{
+        try {
+
+            const transactionContract = getEthereumContract();
+            const transactionCount = await transactionContract.getTransactionCount();
+
+            window.localStorage.setItem('transactionCount', transactionCount);
+
+
+
+        } catch (error) {
+            
+            console.log(error);
+
+            throw new Error('No ETH object')
+        }
+
+
+
+    }
 
     //Función para conectar la billetera 
     const connectWallet = async () => {
@@ -170,10 +224,21 @@ export const TransactionProvider = ({ children }) => {
 
     useEffect(() => {
         checkIfWalletIsConnected();
+        checkIfTransactionsExist();
     }, [])
     // pasar a través de las propiedades
     return (
-        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction, isLoading,  }}>
+        <TransactionContext.Provider value={{
+            connectWallet, 
+            currentAccount, 
+            formData, 
+            setFormData, 
+            handleChange, 
+            sendTransaction, 
+            isLoading, 
+            getAllTransactions, 
+            transactions, 
+            }}>
             {children}
         </TransactionContext.Provider>
     );
