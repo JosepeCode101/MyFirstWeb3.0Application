@@ -4,6 +4,9 @@ Me LEARNING SOLIDITY AND REACT on HOW TO DEPLOY A WEB 3.0 APPLICATION
 # Overview
 ![Overview](./client/images/Results/overView.png?raw=true "Navbar / Welcome")
 
+# Footer
+![Footer](./client/images/Results/footer.png?raw=true "Transaccion component with latest transactions rendered & footer")
+
 # Installation and Information
 Install NodeJS from https://nodejs.org/es/
 

@@ -37,7 +37,7 @@ const TransactionCard = ({addressTo, addressFrom, timestamp, message, keyword, a
                         {message && (
                             <>
                                 <br/>
-                                <p className='tect-white text-base'> Message: {message}</p>
+                                <p className='text-white text-base'> Message: {message}</p>
                             </>
                         )}
                         
