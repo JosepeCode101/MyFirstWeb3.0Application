@@ -17,4 +17,9 @@ and improving myself.
 You can also learn how to create your first web3.0 application 
 https://www.youtube.com/watch?v=Wn_Kb3MR_cU&t=1377s
 
+# Welcome small devices 
+![SmallDevice](./client/images/Results/wSmallDevice.png?raw=true "Welcome")
 
+
+# Footer small devices
+![SmallDevice](./client/images/Results/fSmallDevice.png?raw=true "Welcome")
