@@ -1,4 +1,4 @@
-# MyFirstWeb3_0Application
+# MyFirstWeb3.0Application
 Me LEARNING SOLIDITY AND REACT on HOW TO DEPLOY A WEB 3.0 APPLICATION 
 
 # Overview
